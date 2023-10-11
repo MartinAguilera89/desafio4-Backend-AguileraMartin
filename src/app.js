@@ -4,8 +4,6 @@ import cartsRouter from './routes/carts.js';
 import http from 'http';
 import { Server } from 'socket.io';
 import fs from 'fs';
-import expressHandlebars from 'express-handlebars';
-
 
 const app = express();
 const server = http.createServer(app);
@@ -19,8 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 
-app.engine('handlebars', expressHandlebars());
 app.set('view engine', 'handlebars');
+app.set('views', './src/views');
 
 app.get('/', (req, res) => {
   const products = JSON.parse(fs.readFileSync('./src/data/products.json', 'utf-8'));
